@@ -86,22 +86,42 @@ const init = () =>{
 
     const generarCarta = () =>{
 
-        const url = "";
+        const url = "https://script.google.com/macros/s/1kzxo4edLOEEt-_xbLkH_A-me9KSllXtYgUieWatyVOh3TJ2DHNgHQxGh/exec";
+        //const fecha = new Date();
 
+        // axios.post(url, {
+        //     id: 'Fred',
+        //     fecha: fecha,
+        //     autor: 'DANIEL',
+        //     titulo: 'daniel',
+        //     contenido: 'daniel'
+        // })
+        // .then(function (response) {
+        //     console.log(response);
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
 
-        axios.post('/user', {
-            id: 'Fred',
-            fecha: 'Flintstone',
-            autor: '',
-            titulo: '',
-            contenido: ''
+        var data = {email: "email@address.com"}
+
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: data,
+          contentType: "application/javascript",
+          dataType: 'jsonp'
         })
-        .then(function (response) {
-            console.log(response);
+        .done(function(res) {
+          console.log('success');
         })
-        .catch(function (error) {
-            console.log(error);
+        .fail(function(e) {
+          console.log("error",e);
         });
+        
+        window.receipt = function(res) {
+          // this function will execute upon finish
+        }
 
     }
     generarCarta();
