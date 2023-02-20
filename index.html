@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hola</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- uno -->
+    <link href="https://fonts.googleapis.com/css2?family=Mynerve&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- dos -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body class="font2">
+    
+    <section class="contenedor_prpal">
+        <h1 class="text-center font1">Cartas al viento</h1>
+        <div class="container">
+            <div id="nombre"></div>
+            <div id="contador" class="text-center"></div>
+            <!-- generador de la carta -->
+                <form action="" class="formulario">
+                    <div class="mb-3">
+                        <input type="text" placeholder="Autor" class="form-control input">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" placeholder="Nombre de la carta" class="form-control input">
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="" id="" cols="30" rows="10" placeholder="Contenido de la carta" class="form-control input"></textarea>
+                    </div>
+                </form>
+        </div>
+        <!-- render textos -->
+        <div class="contenedor-textos">
+            <p class="bigfont">
+                fragmentos de textos sueltos para la web, un texto para la gente que lo quiera leer
+            </p>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+body{
+    background-color: black;
+    color:white;
+}
+#borrar{
+    cursor: pointer;
+}
+.contenedor_prpal{
+    padding: 5rem;
+}
+.font1{
+    font-family: 'Mynerve', cursive;
+}
+.font2{
+    font-family: 'Reenie Beanie', cursive;
+}
+.bigfont{
+    font-size: 26px;
+    text-align: center;
+}
+.input{
+    background-color: black;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.formulario{
+
+}
+.input:focus{
+    background-color: black;
+    border: none;
+}
