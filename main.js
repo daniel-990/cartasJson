@@ -1,12 +1,22 @@
-const init = () =>{
+const init = () => {
+
+    //---
+    let db = new PouchDB('holaDb');
+    let db_ = new PouchDB('holaDb2');
+    let renderNombre = document.getElementById("nombre");
+    let renderContador = document.getElementById("contador");
+    let limitador = 60;
+
+    const autor = document.getElementById("autor");
+    const titulo = document.getElementById("titulo");
+    const contenido = document.getElementById("contenido");
+    const btnenviar = document.getElementById("enviar");
+
+    //parse
+    Parse.initialize("nrZS1bOIMhQ08LVfPJj0D3zB6hPcFfd0w4bCL9Mg", "bzno5dqB68suiIu3Jxq5cfidBisZIS5ovOJXmMPQ"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
+    Parse.serverURL = "https://parseapi.back4app.com/";
 
     const datos = () => {
-        //---
-        let db = new PouchDB('holaDb');
-        let db_ = new PouchDB('holaDb2');
-        let renderNombre = document.getElementById("nombre");
-        let renderContador = document.getElementById("contador");
-        let limitador = 60;
 
         db.allDocs({include_docs: true}, 
             (error, docs) => {
@@ -45,7 +55,7 @@ const init = () =>{
                         console.log("Datos: ",items.doc);
                         const nombre = items.doc.nombre;
                         renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
-
+                        autor.value = nombre;
                         let contador = 0;
                         setInterval(function(){
                             //renderContador.innerHTML = contador += 1;
@@ -86,44 +96,54 @@ const init = () =>{
 
     const generarCarta = () =>{
 
-        const url = "https://script.google.com/macros/s/1kzxo4edLOEEt-_xbLkH_A-me9KSllXtYgUieWatyVOh3TJ2DHNgHQxGh/exec";
-        //const fecha = new Date();
+        const insertarDatos = () => {
 
-        // axios.post(url, {
-        //     id: 'Fred',
-        //     fecha: fecha,
-        //     autor: 'DANIEL',
-        //     titulo: 'daniel',
-        //     contenido: 'daniel'
-        // })
-        // .then(function (response) {
-        //     console.log(response);
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
+            const carta = new Parse.Object("cartas");
+            carta.set("autor", autor.value);
+            carta.set("titulo", titulo.value);
+            carta.set("contenido", contenido.value);
+            try {
+                    let result = carta.save()
+                    console.log(result);
+                    try {
+                        const autor = carta.get("autor");
+                        const titulo = carta.get("titulo");
+                        const contenido = carta.get("contenido");
+                        console.log(`autor: ${autor}, titulo: ${titulo}, contenido: ${contenido}`);
+                    } catch (error) {
+                        console.log(`Failed to retrieve the object, with error code: ${error.message}`);
+                    }
 
-        var data = {email: "email@address.com"}
-
-        $.ajax({
-          url: url,
-          type: "POST",
-          data: data,
-          contentType: "application/javascript",
-          dataType: 'jsonp'
-        })
-        .done(function(res) {
-          console.log('success');
-        })
-        .fail(function(e) {
-          console.log("error",e);
-        });
-        
-        window.receipt = function(res) {
-          // this function will execute upon finish
+                } catch(error) {
+                    console.log('Failed to create new object, with error code: ' + error.message);
+                }
         }
+        btnenviar.addEventListener("click",insertarDatos);
 
     }
+
+    const data = async () => {
+        const cartas = Parse.Object.extend('cartas');
+        const query = new Parse.Query(cartas);
+
+        try {
+          const resultados = await query.find();
+          console.log(resultados);
+          for (const object of resultados) {
+
+            const autor = object.get('autor')
+            const titulo = object.get('titulo')
+            const contenido = object.get('contenido')
+            console.log(autor);
+            console.log(titulo);
+            console.log(contenido);
+
+          }
+        } catch (error) {
+          console.error('Error while fetching Project', error);
+        }
+    }
+    data();
     generarCarta();
     datos();
 

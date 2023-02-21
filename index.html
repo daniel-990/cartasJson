@@ -23,31 +23,34 @@
         <h1 class="text-center font1">Cartas al viento</h1>
         <div class="container">
             <div id="nombre"></div>
+            <div class="contenedor-textos">
+                <p class="bigfont">
+                    Estos son fragmentos de textos sueltos, un texto para la gente que lo quiera leer
+                </p>
+            </div>
             <div id="contador" class="text-center"></div>
             <!-- generador de la carta -->
                 <form action="" class="formulario">
                     <div class="mb-3">
-                        <input type="text" placeholder="Autor" class="form-control input">
+                        <input type="text" id="autor" placeholder="Autor" class="form-control input">
                     </div>
                     <div class="mb-3">
-                        <input type="text" placeholder="Nombre de la carta" class="form-control input">
+                        <input type="text" id="titulo" placeholder="Nombre de la carta" class="form-control input">
                     </div>
                     <div class="mb-3">
-                        <textarea name="" id="" cols="30" rows="10" placeholder="Contenido de la carta" class="form-control input"></textarea>
+                        <textarea name="" id="contenido" cols="10" rows="5" placeholder="Contenido" class="form-control input"></textarea>
                     </div>
+                    <input type="button" id="enviar" value="enviar">
                 </form>
         </div>
         <!-- render textos -->
-        <div class="contenedor-textos">
-            <p class="bigfont">
-                fragmentos de textos sueltos para la web, un texto para la gente que lo quiera leer
-            </p>
-        </div>
+        <div id="render-textos"></div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://npmcdn.com/parse@4.0.1/dist/parse.min.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>
