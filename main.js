@@ -56,20 +56,25 @@ const init = () => {
                         const nombre = items.doc.nombre;
                         renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
                         autor.value = nombre;
+
                         let contador = 0;
                         setInterval(function(){
                             //renderContador.innerHTML = contador += 1;
-                            // if(contador == limitador){
-                            //     db.destroy().then(function (response){
-                            //         console.log(response);
-                            //         if(response.ok){
-                            //             alert("Nombre borrado");
-                            //             location.reload();
-                            //         }
-                            //     }).catch(function (err) {
-                            //         console.log(err);
-                            //     });
-                            // }
+                            document.title = `Hola ${nombre}`;
+
+                            if(contador == limitador){
+                                //titulo de la pagina
+                                
+                                // db.destroy().then(function (response){
+                                //     console.log(response);
+                                //     if(response.ok){
+                                //         alert("Nombre borrado");
+                                //         location.reload();
+                                //     }
+                                // }).catch(function (err) {
+                                //     console.log(err);
+                                // });
+                            }
                         },1000);
 
                         const borrar = document.getElementById("borrar");
@@ -103,7 +108,7 @@ const init = () => {
             carta.set("titulo", titulo.value);
             carta.set("contenido", contenido.value);
             try {
-                    let result = carta.save()
+                    let result = carta.save();
                     console.log(result);
                     try {
                         const autor = carta.get("autor");
@@ -131,9 +136,10 @@ const init = () => {
           console.log(resultados);
           for (const object of resultados) {
 
-            const autor = object.get('autor')
-            const titulo = object.get('titulo')
-            const contenido = object.get('contenido')
+            const autor = object.get('autor');
+            const titulo = object.get('titulo');
+            const contenido = object.get('contenido');
+
             console.log(autor);
             console.log(titulo);
             console.log(contenido);
