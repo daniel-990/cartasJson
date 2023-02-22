@@ -22,19 +22,19 @@
     
     <section class="contenedor_prpal">
         <p class="text-center"><img src="./img/carta.png" alt="" class="img-responsive img"></p>
-        <h1 class="text-center font1">Cartas al viento</h1>
-        <div class="container">
-            <div id="nombre"></div>
-            <div class="contenedor-textos">
-                <p class="bigfont">
-                    Fragmentos de textos sueltos, un texto para la gente que lo quiera leer
-                </p>
+        <!-- generador de la carta -->
+        <form action="" class="formulario">
+            <div class="mb-3">
+                <input type="text" id="autor" placeholder="Autor" class="form-control input">
             </div>
-            <hr class="hr">
-            <div id="contador" class="text-center"></div>
-        </div>
-        <!-- render textos -->
-        <div id="render-textos"></div>
+            <div class="mb-3">
+                <input type="text" id="titulo" placeholder="Nombre de la carta" class="form-control input">
+            </div>
+            <div class="mb-3">
+                <textarea name="" id="contenido" cols="10" rows="5" placeholder="Contenido" class="form-control input"></textarea>
+            </div>
+            <input type="button" id="enviar" class="input btn boton" value="enviar">
+        </form>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/pouchdb@8.0.1/dist/pouchdb.min.js"></script>

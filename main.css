@@ -15,7 +15,7 @@ body{
     font-family: 'Reenie Beanie', cursive;
 }
 .bigfont{
-    font-size: 26px;
+    font-size: 24px;
     text-align: center;
 }
 .input{
@@ -54,4 +54,20 @@ body{
 }
 .fuente28{
     font-size: 28px;
+}
+.hr{
+    width: 2rem;
+    margin: 0px auto;
+    border: 1px solid white;
+    opacity: 1;
+}
+
+@media (max-width: 993px) {
+    #render-textos{
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    .contenedor_prpal{
+        padding: 1rem;
+    }
 }
