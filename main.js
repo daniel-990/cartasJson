@@ -58,7 +58,7 @@ const init = () => {
                         console.log("Datos: ",items.doc);
                         const nombre = items.doc.nombre;
                         renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
-                        autor.value = nombre;
+                        //autor.value = nombre;
 
                         let contador = 0;
                         setInterval(function(){
@@ -164,9 +164,14 @@ const init = () => {
           console.error('Error while fetching Project', error);
         }
     }
-    data();
-    generarCarta();
-    datos();
+
+    var pathname = window.location.pathname;
+    if(pathname == "/cartasJson/" || pathname == "/"){
+        data();
+        datos();
+    }else{
+        generarCarta();
+    }
 
 }
 //se activa el metodo
