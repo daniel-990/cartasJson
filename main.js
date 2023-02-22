@@ -12,6 +12,9 @@ const init = () => {
     const contenido = document.getElementById("contenido");
     const btnenviar = document.getElementById("enviar");
 
+    //render
+    const renderTextos = document.getElementById("render-textos");
+
     //parse
     Parse.initialize("nrZS1bOIMhQ08LVfPJj0D3zB6hPcFfd0w4bCL9Mg", "bzno5dqB68suiIu3Jxq5cfidBisZIS5ovOJXmMPQ"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
     Parse.serverURL = "https://parseapi.back4app.com/";
@@ -115,6 +118,8 @@ const init = () => {
                         const titulo = carta.get("titulo");
                         const contenido = carta.get("contenido");
                         console.log(`autor: ${autor}, titulo: ${titulo}, contenido: ${contenido}`);
+                        location.reload();
+
                     } catch (error) {
                         console.log(`Failed to retrieve the object, with error code: ${error.message}`);
                     }
@@ -144,6 +149,16 @@ const init = () => {
             console.log(titulo);
             console.log(contenido);
 
+            renderTextos.innerHTML += `
+                <div class="container">
+                    <h3 class="text-left">${titulo}</h3>
+                    <hr>
+                    <p class="text-center fuente28">
+                        ${contenido}
+                    </p>
+                    <p class="texto-d">Autor: ${autor}</p>
+                </div>
+            `;
           }
         } catch (error) {
           console.error('Error while fetching Project', error);

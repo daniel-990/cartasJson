@@ -33,3 +33,25 @@ body{
     background-color: black;
     border: none;
 }
+.img{
+    width: 3rem;
+}
+.boton{
+    border: 1px solid white;
+}
+.boton:hover{
+    color: #ccc;
+}
+#render-textos{
+    font-size: 20px;
+    padding: 5rem;
+}
+.texto-d{
+    text-align: right;
+}
+.input:focus{
+    color:white;
+}
+.fuente28{
+    font-size: 28px;
+}
