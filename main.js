@@ -9,13 +9,20 @@ const init = () => {
     let db = new PouchDB('holaDb');
     let db_ = new PouchDB('holaDb2');
     let renderNombre = document.getElementById("nombre");
-    let renderContador = document.getElementById("contador");
-    let limitador = 60;
 
+    //formulario crear nota
     const autor = document.getElementById("autor");
     const titulo = document.getElementById("titulo");
     const contenido = document.getElementById("contenido");
     const btnenviar = document.getElementById("enviar");
+    
+    //formulario editar
+    const identificador = document.getElementById("identificador");
+    const autorE = document.getElementById("autorE");
+    const tituloE = document.getElementById("tituloE");
+    const contenidoE = document.getElementById("contenidoE");
+    const btnenviarEditar = document.getElementById("enviarEditar");
+    const btenviarBorrar = document.getElementById("enviarBorrar");
 
     //render
     const renderTextos = document.getElementById("render-textos");
@@ -65,24 +72,6 @@ const init = () => {
                         renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
                         //autor.value = nombre;
                         document.title = `Hola ${nombre}`;
-                        let contador = 0;
-                        setInterval(function(){
-                            //renderContador.innerHTML = contador += 1;
-
-                            if(contador == limitador){
-                                //titulo de la pagina
-                                
-                                // db.destroy().then(function (response){
-                                //     console.log(response);
-                                //     if(response.ok){
-                                //         alert("Nombre borrado");
-                                //         location.reload();
-                                //     }
-                                // }).catch(function (err) {
-                                //     console.log(err);
-                                // });
-                            }
-                        },1000);
 
                         const borrar = document.getElementById("borrar");
                         const borradoDb = () => {
@@ -122,7 +111,9 @@ const init = () => {
                         const titulo = carta.get("titulo");
                         const contenido = carta.get("contenido");
                         console.log(`autor: ${autor}, titulo: ${titulo}, contenido: ${contenido}`);
-                        location.reload();
+                        setInterval(function(){
+                            location.reload();
+                        },2000);
 
                     } catch (error) {
                         console.log(`Failed to retrieve the object, with error code: ${error.message}`);
@@ -137,21 +128,18 @@ const init = () => {
     }
 
     const data = async () => {
-        const cartas = Parse.Object.extend('cartas');
-        const query = new Parse.Query(cartas);
-
+        const cartas = new Parse.Query("cartas");
         try {
-          const resultados = await query.find();
-          console.log(resultados);
+          const resultados = await cartas.find();
           for (const object of resultados) {
 
             const autor = object.get('autor');
             const titulo = object.get('titulo');
             const contenido = object.get('contenido');
 
-            console.log(autor);
-            console.log(titulo);
-            console.log(contenido);
+            // console.log(autor);
+            // console.log(titulo);
+            // console.log(contenido);
 
             renderTextos.innerHTML += `
                 <div class="container">
@@ -169,6 +157,112 @@ const init = () => {
         }
     }
 
+    const actualizarCartas = async () => {
+        const cartas = new Parse.Query('cartas');
+
+        try {
+            const resultados = await cartas.find();
+            for (const object of resultados) {
+                const titulo = object.get('titulo');
+                const id = object.id;
+                identificador.innerHTML += `
+                    <option value="${id}">${titulo}</option>
+                `
+            }
+        } catch (error) {
+            console.error('Error while fetching Project', error);
+        }
+
+        //select para cambiar el elmento que se quiere editar
+        identificador.addEventListener('change', async (event) => {
+            console.log(event.target.value);
+            const valorSelect = event.target.value;
+            try {
+                const resultados = await cartas.find();
+    
+                for (const object of resultados) {
+      
+                    const autor = object.get('autor');
+                    const titulo = object.get('titulo');
+                    const contenido = object.get('contenido');
+                    const id = object.id;
+
+                    if(valorSelect == id){
+                        console.log(titulo + " - " + id);
+                        console.log(contenido);
+                        console.log(autor);
+
+                        tituloE.value = titulo;
+                        autorE.value = autor;
+                        contenidoE.value = contenido;
+
+                        //actualizar elemento de la base de datos
+                        btnenviarEditar.addEventListener('click', async function(){
+                            try {
+                                    const object = await cartas.get(id);
+                                    object.set('autor', autorE.value);
+                                    object.set('titulo', tituloE.value);
+                                    object.set('contenido', contenidoE.value);
+                                try {
+                                const response = await object.save();
+                                    console.log(response.get('autor'));
+                                    console.log(response.get('titulo'));
+                                    console.log(response.get('contenido'));
+                                    console.log('updated', response);
+                                    setInterval(function(){
+                                        location.reload();
+                                    },2000);
+                                } catch (error) {
+                                    console.error('Error ', error);
+                                }
+                            } catch (error) {
+                                console.error('Error while retrieving object ', error);
+                            }
+                        });
+
+                        //borrar elemento de la base de datos
+                        btenviarBorrar.addEventListener('click', async function(){
+                            try {
+                                const object = await cartas.get(id);
+                                try {
+                                    const response = await object.destroy();
+                                    console.log('se elimino el objeto', response);
+                                    setInterval(function(){
+                                        location.reload();
+                                    },2000);
+                                } catch (error) {
+                                    console.error('Error while deleting ParseObject', error);
+                                }
+                            } catch (error) {
+                                console.error('Error while retrieving ParseObject', error);
+                            }
+                        });
+
+                    }
+
+                }
+            } catch (error) {
+                console.error('Error while fetching Project', error);
+            }
+        });
+
+        /*
+            const query = new Parse.Query('records');
+            try {
+                // here you put the objectId that you want to delete
+                const object = await query.get('xKue915KBG');
+                try {
+                const response = await object.destroy();
+                console.log('Deleted ParseObject', response);
+                } catch (error) {
+                console.error('Error while deleting ParseObject', error);
+                }
+            } catch (error) {
+                console.error('Error while retrieving ParseObject', error);
+            }
+        */
+    }
+
     var pathname = window.location.pathname;
     if(pathname == "/cartasJson/" || pathname == "/"){
         data();
@@ -176,6 +270,7 @@ const init = () => {
     }else{
         generarCarta();
     }
+    actualizarCartas();
 
 }
 //se activa el metodo

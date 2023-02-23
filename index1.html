@@ -25,7 +25,8 @@
             <a href="/"><img src="./img/carta.png" alt="" class="img-responsive img"></a>
         </p>
         <!-- generador de la carta -->
-        <form action="" class="formulario">
+        <p>Generador de textos</p>
+        <form class="formulario">
             <div class="mb-3">
                 <input type="text" id="autor" placeholder="Autor" class="form-control input">
             </div>
@@ -36,6 +37,26 @@
                 <textarea name="" id="contenido" cols="10" rows="5" placeholder="Contenido" class="form-control input"></textarea>
             </div>
             <input type="button" id="enviar" class="input btn boton" value="enviar">
+        </form>
+        <hr>
+        <p>Editor de textos</p>
+        <form class="formulario-editar">
+            <div class="mb-3">
+                <select id="identificador" class="form-select" aria-label="Default select example">
+                    <!-- opciones para editar -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" id="autorE" placeholder="Autor" class="form-control input">
+            </div>
+            <div class="mb-3">
+                <input type="text" id="tituloE" placeholder="Nombre de la carta" class="form-control input">
+            </div>
+            <div class="mb-3">
+                <textarea name="" id="contenidoE" cols="10" rows="5" placeholder="Contenido" class="form-control input"></textarea>
+            </div>
+            <input type="button" id="enviarEditar" class="input btn boton" value="editar">
+            <input type="button" id="enviarBorrar" class="input btn boton" value="borrar">
         </form>
     </section>
 
