@@ -192,33 +192,33 @@ const init = () => {
                         console.log(contenido);
                         console.log(autor);
 
-                        tituloE.value = titulo;
-                        autorE.value = autor;
-                        contenidoE.value = contenido;
+                        // tituloE.value = titulo;
+                        // autorE.value = autor;
+                        // contenidoE.value = contenido;
 
                         //actualizar elemento de la base de datos
-                        btnenviarEditar.addEventListener('click', async function(){
-                            try {
-                                    const object = await cartas.get(id);
-                                    object.set('autor', autorE.value);
-                                    object.set('titulo', tituloE.value);
-                                    object.set('contenido', contenidoE.value);
-                                try {
-                                const response = await object.save();
-                                    console.log(response.get('autor'));
-                                    console.log(response.get('titulo'));
-                                    console.log(response.get('contenido'));
-                                    console.log('updated', response);
-                                    setInterval(function(){
-                                        location.reload();
-                                    },2000);
-                                } catch (error) {
-                                    console.error('Error ', error);
-                                }
-                            } catch (error) {
-                                console.error('Error while retrieving object ', error);
-                            }
-                        });
+                        // btnenviarEditar.addEventListener('click', async function(){
+                        //     try {
+                        //             const object = await cartas.get(id);
+                        //             object.set('autor', autorE.value);
+                        //             object.set('titulo', tituloE.value);
+                        //             object.set('contenido', contenidoE.value);
+                        //         try {
+                        //         const response = await object.save();
+                        //             console.log(response.get('autor'));
+                        //             console.log(response.get('titulo'));
+                        //             console.log(response.get('contenido'));
+                        //             console.log('updated', response);
+                        //             setInterval(function(){
+                        //                 location.reload();
+                        //             },2000);
+                        //         } catch (error) {
+                        //             console.error('Error ', error);
+                        //         }
+                        //     } catch (error) {
+                        //         console.error('Error while retrieving object ', error);
+                        //     }
+                        // });
 
                         //borrar elemento de la base de datos
                         btenviarBorrar.addEventListener('click', async function(){
