@@ -64,11 +64,10 @@ const init = () => {
                         const nombre = items.doc.nombre;
                         renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
                         //autor.value = nombre;
-
+                        document.title = `Hola ${nombre}`;
                         let contador = 0;
                         setInterval(function(){
                             //renderContador.innerHTML = contador += 1;
-                            document.title = `Hola ${nombre}`;
 
                             if(contador == limitador){
                                 //titulo de la pagina
