@@ -1,5 +1,7 @@
 //config
-import dataD from './config.json' assert {type: 'json'};
+import dataD from './config.json' assert {
+    type: 'json'
+};
 
 const init = () => {
     
