@@ -64,7 +64,7 @@ body{
 
 @media (max-width: 993px) {
     #render-textos{
-        padding: 1rem;
+        padding: 0rem;
         margin-top: 1rem;
     }
     .contenedor_prpal{
