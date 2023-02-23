@@ -1,5 +1,8 @@
-const init = () => {
+//config
+import dataD from './config.json' assert {type: 'json'};
 
+const init = () => {
+    
     //---
     let db = new PouchDB('holaDb');
     let db_ = new PouchDB('holaDb2');
@@ -16,8 +19,8 @@ const init = () => {
     const renderTextos = document.getElementById("render-textos");
 
     //parse
-    Parse.initialize("nrZS1bOIMhQ08LVfPJj0D3zB6hPcFfd0w4bCL9Mg", "bzno5dqB68suiIu3Jxq5cfidBisZIS5ovOJXmMPQ"); //PASTE HERE YOUR Back4App APPLICATION ID AND YOUR JavaScript KEY
-    Parse.serverURL = "https://parseapi.back4app.com/";
+    Parse.initialize(dataD.data.id, dataD.data.key); //Back4App
+    Parse.serverURL = dataD.data.parseUrl;
 
     const datos = () => {
 
