@@ -246,6 +246,7 @@ const init = () => {
                 btenviarBorrar.addEventListener('click', async function(){
 
                     if(autorId.value == id){
+                        console.log("se elimino "+id);
                         // try {
                         //     const object = await cartas.get(id);
                         //     try {
