@@ -217,28 +217,27 @@ const init = () => {
                         document.getElementById("aceptar").style.display="initial";
 
                         document.getElementById("aceptar").addEventListener('click', async function(){
-                            try {
-                                    const object = await cartas.get(id);
-                                    object.set('autor', autorE.value);
-                                    object.set('titulo', tituloE.value);
-                                    object.set('contenido', contenidoE.value);
-                                try {
-                                    const response = await object.save();
-                                    console.log(response.get('autor'));
-                                    console.log(response.get('titulo'));
-                                    console.log(response.get('contenido'));
-                                    console.log('updated', response);
-                                    setInterval(function(){
-                                        location.reload();
-                                    },2000);
-                                } catch (error) {
-                                    console.error('Error ', error);
-                                }
-                            } catch (error) {
-                                console.error('Error while retrieving object ', error);
-                            }
-                        })
-
+                            // try {
+                            //         const object = await cartas.get(id);
+                            //         object.set('autor', autorE.value);
+                            //         object.set('titulo', tituloE.value);
+                            //         object.set('contenido', contenidoE.value);
+                            //     try {
+                            //         const response = await object.save();
+                            //         console.log(response.get('autor'));
+                            //         console.log(response.get('titulo'));
+                            //         console.log(response.get('contenido'));
+                            //         console.log('updated', response);
+                            //         setInterval(function(){
+                            //             location.reload();
+                            //         },2000);
+                            //     } catch (error) {
+                            //         console.error('Error ', error);
+                            //     }
+                            // } catch (error) {
+                            //     console.error('Error while retrieving object ', error);
+                            // }
+                        });
                     }
                 });
 
