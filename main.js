@@ -17,13 +17,12 @@ const init = () => {
     const btnenviar = document.getElementById("enviar");
     
     //formulario editar
-    const identificador = document.getElementById("identificador");
-    const autorE = document.getElementById("autorE");
-    const tituloE = document.getElementById("tituloE");
-    const contenidoE = document.getElementById("contenidoE");
-    const btnenviarEditar = document.getElementById("enviarEditar");
-    const btenviarBorrar = document.getElementById("enviarBorrar");
-    const autorId = document.getElementById("autorId");
+    // const identificador = document.getElementById("identificador");
+    // const autorE = document.getElementById("autorE");
+    // const tituloE = document.getElementById("tituloE");
+    // const contenidoE = document.getElementById("contenidoE");
+
+    const renderEditor = document.getElementById("render-editor");
 
     //render
     const renderTextos = document.getElementById("render-textos");
@@ -159,7 +158,6 @@ const init = () => {
     }
 
     const actualizarCartas = async () => {
-        document.getElementById("aceptar").style.display="none";
         const cartas = new Parse.Query('cartas');
 
         try {
@@ -176,7 +174,7 @@ const init = () => {
         }
 
         //select para cambiar el elmento que se quiere editar
-        identificador.addEventListener('change', async (event) => {
+        identificador.addEventListener('change', async (event) => { 
             autorId.value = event.target.value;
 
             // try {
@@ -207,16 +205,34 @@ const init = () => {
                 const contenido = object.get('contenido');
                 const id = object.id;
 
+                renderEditor.innerHTML += `
+                    <div class="mb-3">
+                        <input type="text" value="${autor}" id="autorE" placeholder="Autor" class="form-control input">
+                        <input type="text" name="${id}" value="${id}" id="autorID" placeholder="ID" class="form-control input" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" value="${titulo}" id="tituloE" placeholder="Nombre de la carta" class="form-control input">
+                    </div>
+                    <div class="mb-3">
+                        <textarea name="" id="contenidoE" cols="10" rows="5" placeholder="Contenido" class="form-control input">${contenido}</textarea>
+                    </div>
+                    <input type="button" id="enviarEditar_${id}" class="input btn boton enviarEditar" value="editar">
+                    <input type="button" id="enviarBorrar" class="input btn boton" value="borrar">
+                    <hr>
+                `;
+
+
+                const btnenviarEditar = document.getElementById(`enviarEditar_${id}`);
+                const autorId = document.getElementById("autorID");
+                const btenviarBorrar = document.getElementById("enviarBorrar");
+
                 //actualizar elemento de la base de datos
-                btnenviarEditar.addEventListener('click', async function(){
+                btnenviarEditar.addEventListener('click', function(){
+                    
                     if(autorId.value == id){
 
-                        tituloE.value = titulo;
-                        autorE.value = autor;
-                        contenidoE.value = contenido;
-                        document.getElementById("aceptar").style.display="initial";
+                        console.log("estas con el ID: "+id);
 
-                        document.getElementById("aceptar").addEventListener('click', async function(){
                             // try {
                             //         const object = await cartas.get(id);
                             //         object.set('autor', autorE.value);
@@ -237,31 +253,30 @@ const init = () => {
                             // } catch (error) {
                             //     console.error('Error while retrieving object ', error);
                             // }
-                        });
                     }
                 });
 
                 //borrar elemento de la base de datos
-                btenviarBorrar.addEventListener('click', async function(){
+                // btenviarBorrar.addEventListener('click', async function(){
 
-                    if(autorId.value == id){
-                        console.log("se elimino "+id);
-                        // try {
-                        //     const object = await cartas.get(id);
-                        //     try {
-                        //         const response = await object.destroy();
-                        //         console.log('se elimino el objeto', response);
-                        //         setInterval(function(){
-                        //             location.reload();
-                        //         },2000);
-                        //     } catch (error) {
-                        //         console.error('Error while deleting ParseObject', error);
-                        //     }
-                        // } catch (error) {
-                        //     console.error('Error while retrieving ParseObject', error);
-                        // }
-                    }
-                });
+                //     if(autorId.value == id){
+                //         console.log("se elimino "+id);
+                //         // try {
+                //         //     const object = await cartas.get(id);
+                //         //     try {
+                //         //         const response = await object.destroy();
+                //         //         console.log('se elimino el objeto', response);
+                //         //         setInterval(function(){
+                //         //             location.reload();
+                //         //         },2000);
+                //         //     } catch (error) {
+                //         //         console.error('Error while deleting ParseObject', error);
+                //         //     }
+                //         // } catch (error) {
+                //         //     console.error('Error while retrieving ParseObject', error);
+                //         // }
+                //     }
+                // });
             }
         } catch (error) {
             console.error('Error while fetching Project', error);

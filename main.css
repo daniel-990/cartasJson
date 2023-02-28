@@ -19,7 +19,7 @@ body{
     text-align: center;
 }
 .input{
-    background-color: black;
+    background-color: black !important;
     color: white;
     border: none;
     border-bottom: 1px solid white;
@@ -64,6 +64,9 @@ body{
 .form-control[readonly]{
     background-color: #424242;
 }
+#render-editor{
+    padding: 5rem;
+}
 @media (max-width: 993px) {
     #render-textos{
         padding: 0rem;
@@ -71,5 +74,8 @@ body{
     }
     .contenedor_prpal{
         padding: 1rem;
+    }
+    #render-editor{
+        padding: 2rem;
     }
 }
