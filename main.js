@@ -69,11 +69,11 @@ const init = () => {
                         //se obtienen datos guardados local
                         console.log("Datos: ",items.doc);
                         const nombre = items.doc.nombre;
-                        renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
+                        renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar_" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
                         //autor.value = nombre;
                         document.title = `Hola ${nombre}`;
 
-                        const borrar = document.getElementById("borrar");
+                        const borrar = document.getElementById("borrar_");
                         const borradoDb = () => {
                             let borrarNombre = confirm("¿Quierer borrar el nombre?");
                             
@@ -207,14 +207,14 @@ const init = () => {
                 renderEditor.innerHTML += `
                     <div class="mb-3">
                         <span>fecha: ${fecha.toLocaleDateString("en-US")}</span>
-                        <input type="text" value="${autor}" id="autorE" placeholder="Autor" class="form-control input">
+                        <input type="text" value="${autor}" id="autorE" placeholder="Autor" class="form-control input" disabled>
                         <input type="text" name="${id}" value="${id}" id="autorID" placeholder="ID" class="form-control input" disabled>
                     </div>
                     <div class="mb-3">
-                        <input type="text" value="${titulo}" id="tituloE" placeholder="Nombre de la carta" class="form-control input">
+                        <input type="text" value="${titulo}" id="tituloE" placeholder="Nombre de la carta" class="form-control input" disabled>
                     </div>
                     <div class="mb-3">
-                        <textarea name="" id="contenidoE" cols="10" rows="5" placeholder="Contenido" class="form-control input">${contenido}</textarea>
+                        <textarea name="" id="contenidoE" cols="10" rows="5" placeholder="Contenido" class="form-control input" disabled>${contenido}</textarea>
                     </div>
                     <input type="button" id="enviarEditar_${id}" class="input btn boton enviarEditar" value="editar">
                     <input type="button" id="enviarBorrar" class="input btn boton" value="borrar">
@@ -288,8 +288,91 @@ const init = () => {
         data();
         datos();
     }else{
-        generarCarta();
-        actualizarCartas();
+
+        const logIn = () => {
+
+            db_.allDocs({include_docs: true}, 
+                (error, docs) => {
+                    if (error){
+                        console.log(error);
+                    } else {
+                        let data = docs.rows;
+    
+                        db_.info().then(function (result) {
+                            const contador = result.doc_count;
+                            if (contador == 0) {
+                                // para iniciar sesion con el usuario registrado
+                                let usuario = prompt ('ingrese usuario');
+                                let pass = prompt ('ingrese contraseña');
+                                const fecha = Date.now();
+                                db_.put({
+                                    _id: fecha.toString(), //id para indentificar
+                                    fecha: new Date(),
+                                    nombreusuario: usuario,
+                                    pass: pass
+                                }).then(function(response){
+                                    //se obtienen datos de la base de datos local
+                                    console.log(response);
+                                    location.reload();
+                                }).catch(function(err){
+                                    console.log(err);
+                                });
+                            }
+                        });
+    
+                        //se recorren los datos guardados
+                        data.map(items => {
+                            //se obtienen datos guardados local
+                            console.log("Datos: ",items.doc);
+                            const nombre = items.doc.nombreusuario;
+                            const pass = items.doc.pass;
+
+                            Parse.User.logIn(nombre, pass).then(function(user) {
+                                console.log('usuario exist: ' + user.get("username") + ' email: ' + user.get("email"));
+
+                                const dataEmail = user.get("email");
+                                
+                                //renderNombre.innerHTML += `<h1 class="text-center">Hola <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
+                                //autor.value = nombre;
+                                //document.title = `Hola ${user.get("username")}`;
+                                
+                                //para crear cartas nuevas
+                                generarCarta();
+                                //para editar
+                                actualizarCartas();
+
+                                //borrar sesion
+                                const borrar = document.getElementById("borrar");
+                                const borradoDb = () => {
+                                    let borrarNombre = confirm("¿Quieres cerrar sesion?");
+                                    
+                                    if(borrarNombre != false){
+                                        db_.destroy().then(function (response) {
+                                            console.log(response);
+                                            if(response.ok){
+                                                alert("Nombre borrado");
+                                                location.reload();
+                                            }
+                                        }).catch(function (err) {
+                                            console.log(err);
+                                        });
+                                    }
+                                }
+                                borrar.addEventListener('click',borradoDb);
+
+                            }).catch(function(error){
+                                location.href = "http://localhost/cartasJson/";
+                                alert("Error: " + error.code + " " + error.message);
+                                console.log("Error: " + error.code + " " + error.message);
+                            });
+    
+                        })
+                    }
+                });
+
+        }
+
+        logIn();
     }
 
 }
