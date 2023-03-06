@@ -202,9 +202,11 @@ const init = () => {
                 const titulo = object.get('titulo');
                 const contenido = object.get('contenido');
                 const id = object.id;
+                const fecha = object.get('createdAt');
 
                 renderEditor.innerHTML += `
                     <div class="mb-3">
+                        <span>fecha: ${fecha.toLocaleDateString("en-US")}</span>
                         <input type="text" value="${autor}" id="autorE" placeholder="Autor" class="form-control input">
                         <input type="text" name="${id}" value="${id}" id="autorID" placeholder="ID" class="form-control input" disabled>
                     </div>
