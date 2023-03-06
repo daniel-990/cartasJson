@@ -136,10 +136,7 @@ const init = () => {
             const autor = object.get('autor');
             const titulo = object.get('titulo');
             const contenido = object.get('contenido');
-
-            // console.log(autor);
-            // console.log(titulo);
-            // console.log(contenido);
+            const fecha = object.get('createdAt');
 
             renderTextos.innerHTML += `
                 <div class="container">
@@ -149,6 +146,7 @@ const init = () => {
                         ${contenido}
                     </p>
                     <p class="texto-d">Autor: ${autor}</p>
+                    <p class="texto-d">Fecha: ${fecha.toLocaleDateString("en-US")}</p>
                 </div>
             `;
           }
