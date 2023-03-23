@@ -69,7 +69,7 @@ const init = () => {
                         //se obtienen datos guardados local
                         console.log("Datos: ",items.doc);
                         const nombre = items.doc.nombre;
-                        renderNombre.innerHTML += `<h1 class="text-center">Hola ${nombre} <span id="borrar_" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
+                        renderNombre.innerHTML += `<h5 class="text-center">Hola ${nombre} <span id="borrar_" title="borrar nombre"><i class="bi bi-eraser"></i></span></h5><hr>`;
                         //autor.value = nombre;
                         document.title = `Hola ${nombre}`;
 

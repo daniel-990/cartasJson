@@ -21,7 +21,7 @@ body{
     font-family: 'Arvo', serif;
 }
 .bigfont{
-    font-size: 24px;
+    font-size: 16px;
     text-align: center;
 }
 .input{
@@ -54,6 +54,7 @@ body{
 }
 .texto-d{
     text-align: right;
+    font-size: 11px;
 }
 .input:focus{
     color:white;
