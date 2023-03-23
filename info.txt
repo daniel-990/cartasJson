@@ -1,0 +1,2 @@
+--salir a produccion:
+    ->$ netlify deploy --prod

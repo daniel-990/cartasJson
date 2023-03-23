@@ -337,7 +337,7 @@ const init = () => {
                                 }
                             });
                         }).catch(function(error){
-                            location.href = "http://localhost/cartasJson/";
+                            location.href = "/";
                             alert("Error: " + error.code + " " + error.message);
                             console.log("Error: " + error.code + " " + error.message);
                         });
