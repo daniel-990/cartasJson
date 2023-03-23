@@ -7,9 +7,9 @@ const init = () => {
     
     //---
     let db = new PouchDB('holaDb');
-    let db_ = new PouchDB('holaDb2');
+    //let db_ = new PouchDB('holaDb2');
     let renderNombre = document.getElementById("nombre");
-
+    let renderNombre_ = document.getElementById("nombre_")
     //formulario crear nota
     const autor = document.getElementById("autor");
     const titulo = document.getElementById("titulo");
@@ -196,7 +196,7 @@ const init = () => {
         try {
             const resultados = await cartas.find();
 
-            for (const object of resultados) {
+            for(const object of resultados){
   
                 const autor = object.get('autor');
                 const titulo = object.get('titulo');
@@ -291,84 +291,87 @@ const init = () => {
 
         const logIn = () => {
 
-            db_.allDocs({include_docs: true}, 
-                (error, docs) => {
-                    if (error){
-                        console.log(error);
-                    } else {
-                        let data = docs.rows;
+            // para iniciar sesion con el usuario registrado
+            let usuario = prompt ('ingrese usuario');
+            let pass = prompt ('ingrese contraseña');
+            Parse.User.logIn(usuario, pass).then(function(user) {
+                console.log('usuario exist: ' + user.get("username") + ' email: ' + user.get("email"));
+
+                const dataEmail = user.get("email");
+                console.log(dataEmail);
+                renderNombre_.innerHTML += `<h5 class="text-center">Hola ${dataEmail} </h5><hr>`;
+                document.title = `Hola ${user.get("username")}`;
+                
+                //para crear cartas nuevas
+                generarCarta();
+                //para editar
+                actualizarCartas();
+
+                //borrar sesion
+                // const borrar = document.getElementById("borrar");
+                // const borradoDb = () => {
+                //     let borrarNombre = confirm("¿Quieres cerrar sesion?");
+                    
+                //     if(borrarNombre != false){
+                //         db_.destroy().then(function (response) {
+                //             console.log(response);
+                //             if(response.ok){
+                //                 alert("Nombre borrado");
+                //                 location.reload();
+                //             }
+                //         }).catch(function (err) {
+                //             console.log(err);
+                //         });
+                //     }
+                // }
+                // borrar.addEventListener('click',borradoDb);
+
+            }).catch(function(error){
+                location.href = "http://localhost/cartasJson/";
+                alert("Error: " + error.code + " " + error.message);
+                console.log("Error: " + error.code + " " + error.message);
+            });
+
+            // db_.info().then(function (result){
+            //     const contador = result.doc_count;
+            //     if (contador == 0){
+            //         // para iniciar sesion con el usuario registrado
+            //         let usuario = prompt ('ingrese usuario');
+            //         let pass = prompt ('ingrese contraseña');
+            //         const fecha = Date.now();
+            //         db_.put({
+            //             _id: fecha.toString(), //id para indentificar
+            //             fecha: new Date(),
+            //             nombreusuario: usuario,
+            //             pass: pass
+            //         }).then(function(response){
+            //             //se obtienen datos de la base de datos local
+            //             console.log(response);
+            //             location.reload();
+            //         }).catch(function(err){
+            //             console.log(err);
+            //         });
+            //     }
+            // });
+
+
+            // db_.allDocs({include_docs: true}, 
+            //     (error, docs) => {
+            //         if (error){
+            //             console.log(error);
+            //         } else {
+            //             let data = docs.rows;
     
-                        db_.info().then(function (result) {
-                            const contador = result.doc_count;
-                            if (contador == 0) {
-                                // para iniciar sesion con el usuario registrado
-                                let usuario = prompt ('ingrese usuario');
-                                let pass = prompt ('ingrese contraseña');
-                                const fecha = Date.now();
-                                db_.put({
-                                    _id: fecha.toString(), //id para indentificar
-                                    fecha: new Date(),
-                                    nombreusuario: usuario,
-                                    pass: pass
-                                }).then(function(response){
-                                    //se obtienen datos de la base de datos local
-                                    console.log(response);
-                                    location.reload();
-                                }).catch(function(err){
-                                    console.log(err);
-                                });
-                            }
-                        });
+            //             //se recorren los datos guardados
+            //             data.map(items => {
+            //                 //se obtienen datos guardados local
+            //                 console.log("Datos: ",items.doc);
+            //                 const nombre = items.doc.nombreusuario;
+            //                 const pass = items.doc.pass;
     
-                        //se recorren los datos guardados
-                        data.map(items => {
-                            //se obtienen datos guardados local
-                            console.log("Datos: ",items.doc);
-                            const nombre = items.doc.nombreusuario;
-                            const pass = items.doc.pass;
-
-                            Parse.User.logIn(nombre, pass).then(function(user) {
-                                console.log('usuario exist: ' + user.get("username") + ' email: ' + user.get("email"));
-
-                                const dataEmail = user.get("email");
-                                
-                                //renderNombre.innerHTML += `<h1 class="text-center">Hola <span id="borrar" title="borrar nombre"><i class="bi bi-eraser"></i></span></h1><hr>`;
-                                //autor.value = nombre;
-                                //document.title = `Hola ${user.get("username")}`;
-                                
-                                //para crear cartas nuevas
-                                generarCarta();
-                                //para editar
-                                actualizarCartas();
-
-                                //borrar sesion
-                                const borrar = document.getElementById("borrar");
-                                const borradoDb = () => {
-                                    let borrarNombre = confirm("¿Quieres cerrar sesion?");
-                                    
-                                    if(borrarNombre != false){
-                                        db_.destroy().then(function (response) {
-                                            console.log(response);
-                                            if(response.ok){
-                                                alert("Nombre borrado");
-                                                location.reload();
-                                            }
-                                        }).catch(function (err) {
-                                            console.log(err);
-                                        });
-                                    }
-                                }
-                                borrar.addEventListener('click',borradoDb);
-
-                            }).catch(function(error){
-                                location.href = "http://localhost/cartasJson/";
-                                alert("Error: " + error.code + " " + error.message);
-                                console.log("Error: " + error.code + " " + error.message);
-                            });
-    
-                        })
-                    }
-                });
+            //             })
+            //         }
+            //     });
 
         }
 

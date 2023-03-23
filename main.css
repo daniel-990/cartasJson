@@ -8,11 +8,17 @@ body{
 .contenedor_prpal{
     padding: 5rem;
 }
-.font1{
+.font0{
     font-family: 'Mynerve', cursive;
 }
-.font2{
+.font1{
     font-family: 'Reenie Beanie', cursive;
+}
+.font2{
+    font-family: 'IBM Plex Mono', monospace;
+}
+.font3{
+    font-family: 'Arvo', serif;
 }
 .bigfont{
     font-size: 24px;
@@ -53,7 +59,7 @@ body{
     color:white;
 }
 .fuente28{
-    font-size: 28px;
+    font-size: 16px;
 }
 .hr{
     width: 2rem;
