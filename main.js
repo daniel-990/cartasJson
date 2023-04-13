@@ -124,7 +124,6 @@ const init = () => {
                 }
         }
         btnenviar.addEventListener("click",insertarDatos);
-
     }
 
     const data = async () => {
@@ -136,7 +135,7 @@ const init = () => {
             const autor = object.get('autor');
             const titulo = object.get('titulo');
             const contenido = object.get('contenido');
-            const fecha = object.get('createdAt');
+            const fecha = object.get('createdAt').toLocaleDateString("en-US");
 
             renderTextos.innerHTML += `
                 <div class="container">
@@ -146,7 +145,7 @@ const init = () => {
                         ${contenido}
                     </p>
                     <p class="texto-d">Autor: ${autor}</p>
-                    <p class="texto-d">Fecha: ${fecha.toLocaleDateString("en-US")}</p>
+                    <p class="texto-d">Fecha: ${fecha}</p>
                 </div>
             `;
           }
@@ -283,10 +282,24 @@ const init = () => {
         }
     }
 
+    const ipSave = () => {
+        $.getJSON("https://api.ipify.org?format=json", function(data) {
+            const carta = new Parse.Object("data");
+            carta.set("dataIp", data.ip);
+            try {
+                    let result = carta.save();
+                    console.log("registro");
+                } catch(error) {
+                    console.log('Failed to create new object, with error code: ' + error.message);
+                }
+        });
+    }
+
     var pathname = window.location.pathname;
     if(pathname == "/cartasJson/" || pathname == "/"){
         data();
         datos();
+        ipSave();
     }else{
 
         const logIn = () => {
