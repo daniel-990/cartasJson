@@ -283,16 +283,47 @@ const init = () => {
     }
 
     const ipSave = () => {
-        $.getJSON("https://api.ipify.org?format=json", function(data) {
+
+        axios.get('https://ipinfo.io/json?token=788b93b13a058f')
+        .then(function (response) {
+            console.log(response.data); //data
+
+            const data = response.data; //datos api
+
             const carta = new Parse.Object("data");
             carta.set("dataIp", data.ip);
+            carta.set("city", data.city);
+            carta.set("country", data.country);
+            carta.set("region", data.region);
             try {
                     let result = carta.save();
                     console.log("registro");
                 } catch(error) {
                     console.log('Failed to create new object, with error code: ' + error.message);
                 }
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+            // always executed
         });
+
+        // $.getJSON("https://ipinfo.io", function(data) {
+        //     const carta = new Parse.Object("data");
+        //     console.log(data);
+        //     carta.set("dataIp", data.ip);
+        //     carta.set("city", data.city);
+        //     carta.set("country", data.country);
+        //     carta.set("region", data.region);
+
+        //     try {
+        //             let result = carta.save();
+        //             console.log("registro");
+        //         } catch(error) {
+        //             console.log('Failed to create new object, with error code: ' + error.message);
+        //         }
+        // });
     }
 
     var pathname = window.location.pathname;
