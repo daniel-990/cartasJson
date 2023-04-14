@@ -286,7 +286,7 @@ const init = () => {
 
         axios.get('https://ipinfo.io/json?token=788b93b13a058f')
         .then(function (response) {
-            console.log(response.data); //data
+            //console.log(response.data); //data
 
             const data = response.data; //datos api
 
