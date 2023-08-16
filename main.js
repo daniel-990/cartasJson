@@ -26,11 +26,6 @@ const init = () => {
 
     //render
     const renderTextos = document.getElementById("render-textos");
-    //precarga
-    const renderPrecarga = document.getElementById("precarga"); 
-    renderPrecarga.innerHTML = `
-      <p><img src="./img/carga.svg" alt=""></p>
-    `;
 
     //parse
     Parse.initialize(dataD.data.id, dataD.data.key); //Back4App
@@ -133,6 +128,11 @@ const init = () => {
 
     const data = async () => {
         const cartas = new Parse.Query("cartas");
+        //precarga
+        const renderPrecarga = document.getElementById("precarga"); 
+        renderPrecarga.innerHTML = `
+        <p><img src="./img/carga.svg" alt=""></p>
+        `;
         try {
           const resultados = await cartas.find();
           for (const object of resultados) {
