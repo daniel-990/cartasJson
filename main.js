@@ -26,6 +26,11 @@ const init = () => {
 
     //render
     const renderTextos = document.getElementById("render-textos");
+    //precarga
+    const renderPrecarga = document.getElementById("precarga"); 
+    renderPrecarga.innerHTML = `
+      <p><img src="./img/carga.svg" alt=""></p>
+    `;
 
     //parse
     Parse.initialize(dataD.data.id, dataD.data.key); //Back4App
@@ -136,7 +141,7 @@ const init = () => {
             const titulo = object.get('titulo');
             const contenido = object.get('contenido');
             const fecha = object.get('createdAt').toLocaleDateString("en-US");
-
+            renderPrecarga.innerHTML = ``;
             renderTextos.innerHTML += `
                 <div class="container">
                     <h3 class="text-left">${titulo}</h3>

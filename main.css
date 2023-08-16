@@ -71,6 +71,10 @@ body{
 .form-control[readonly]{
     background-color: #424242;
 }
+#precarga p{text-align: center;}
+#precarga img{
+    width: 10%;
+}
 #render-editor{
     padding: 5rem;
 }
